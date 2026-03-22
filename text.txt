@@ -1,0 +1,21 @@
+HTTP 
+
+    GET = get info
+    POST - Create new info
+
+    POST
+Route:
+    localhost:5000/api/todos/
+    localhost:5000/api/posts/
+    localhost:5000/api/todos/5
+
+
+Frameworw for servers:
+    - express - js
+    - django - python
+    - flask - python
+
+
+    npm install [package_name]
+
+express, nodemon
