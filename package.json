@@ -2,6 +2,7 @@
     "name": "mini-task-app",
     "version": "1.0.0",
     "description": "A simple task management application built with React.",
+    "type": "module",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"

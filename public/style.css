@@ -1,8 +1,8 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  margin: 0;
   padding: 40px;
+  margin: 0;
 }
 
 .container {
@@ -11,7 +11,7 @@ body {
   background: white;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
 }
 
 h1 {
@@ -37,20 +37,16 @@ button {
 }
 
 li {
-  background: #000;
-  color:wheat;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #eee;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.delete-btn {
-  background: crimson;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 10px;
+.done {
+  text-decoration: line-through;
+  color: gray;
 }
