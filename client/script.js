@@ -2,10 +2,12 @@ const todoInput = document.getElementById('todoInput');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
 
-let todos = JSON.parse(localStorage.getItem('todos')) || [];
+let todos = [];
 
-function saveTodos() {
-	localStorage.setItem('todos', JSON.stringify(todos));
+async function loadTodos() {
+	const response = await fetch('http://localhost:5001/api/todos');
+	todos = await response.json();
+	renderTodos();
 }
 
 function renderTodos() {
@@ -21,19 +23,23 @@ function renderTodos() {
 			span.classList.add('done');
 		}
 
-		span.addEventListener('click', () => {
-			todo.completed = !todo.completed;
-			saveTodos();
-			renderTodos();
+		span.addEventListener('click', async () => {
+			await fetch(`http://localhost:5001/api/todos/${todo.id}`, {
+				method: 'PATCH'
+			});
+
+			loadTodos();
 		});
 
 		const deleteBtn = document.createElement('button');
 		deleteBtn.textContent = 'Delete';
 
-		deleteBtn.addEventListener('click', () => {
-			todos = todos.filter((t) => t.id !== todo.id);
-			saveTodos();
-			renderTodos();
+		deleteBtn.addEventListener('click', async () => {
+			await fetch(`http://localhost:5001/api/todos/${todo.id}`, {
+				method: 'DELETE'
+			});
+
+			loadTodos();
 		});
 
 		li.appendChild(span);
@@ -42,7 +48,7 @@ function renderTodos() {
 	}
 }
 
-function addTodo() {
+async function addTodo() {
 	const text = todoInput.value.trim();
 
 	if (text === '') {
@@ -50,19 +56,18 @@ function addTodo() {
 		return;
 	}
 
-	const newTodo = {
-		id: Date.now(),
-		text: text,
-		completed: false
-	};
-
-	todos.push(newTodo);
-	saveTodos();
-	renderTodos();
+	await fetch('http://localhost:5001/api/todos', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ text })
+	});
 
 	todoInput.value = '';
+	loadTodos();
 }
 
 addBtn.addEventListener('click', addTodo);
 
-renderTodos();
+loadTodos();
